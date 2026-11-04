@@ -126,3 +126,18 @@ bot._client.on('packet', (data, meta) => {
         console.log('[PACKET]', meta.name, data);
     }
 });
+
+const password = 'YOUR_PASSWORD';
+
+bot.on('message', (message) => {
+    const msg = message.toString();
+
+    console.log('[SERVER MESSAGE]', msg);
+
+    if (msg.includes('Waiting for your password')) {
+        console.log('[AUTH] Password prompt detected!');
+
+      bot.chat(`/password ${password} ${password}`);
+        //bot.chat(`/login ${password}`);
+    }
+});

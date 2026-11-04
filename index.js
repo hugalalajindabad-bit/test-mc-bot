@@ -10,10 +10,10 @@ const bot = mineflayer.createBot({
   // password: '12345678'      // set if you want to use password-based auth (may be unreliable). If specified, the `username` must be an email
 })
 
-bot.on('chat', (username, message) => {
+/*bot.on('chat', (username, message) => {
   if (username === bot.username) return
   bot.chat(message)
-})
+})*/
 
 // Log errors and kick reasons:
 bot.on('kicked', console.log)
@@ -118,7 +118,7 @@ bot.on('end', (reason) => {
 });
 
 // Raw incoming packets
-bot._client.on('packet', (data, meta) => {
+/*bot._client.on('packet', (data, meta) => {
     if (
         meta.name.includes('window') ||
         meta.name.includes('form') ||
@@ -126,7 +126,7 @@ bot._client.on('packet', (data, meta) => {
     ) {
         console.log('[PACKET]', meta.name, data);
     }
-});
+});*/
 
 const password = 'YOUR_PASSWORD';
 

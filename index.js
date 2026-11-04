@@ -129,7 +129,7 @@ bot._client.on('packet', (data, meta) => {
 
 const password = 'YOUR_PASSWORD';
 
-bot.on('message', (message) => {
+/*bot.on('message', (message) => {
     const msg = message.toString();
 
     console.log('[SERVER MESSAGE]', msg);
@@ -147,4 +147,4 @@ bot.chat(`/accept`);
       }, 4000);
         //bot.chat(`/login ${password}`);  /accept
     }
-});
+});*/

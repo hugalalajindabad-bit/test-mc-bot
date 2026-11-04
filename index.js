@@ -10,142 +10,47 @@ const bot = mineflayer.createBot({
   // password: '12345678'      // set if you want to use password-based auth (may be unreliable). If specified, the `username` must be an email
 })
 
-/*bot.on('chat', (username, message) => {
-  if (username === bot.username) return
-  bot.chat(message)
-})*/
-
-// Log errors and kick reasons:
-bot.on('kicked', console.log)
-bot.on('error', console.log)
-//const { mineflayer: mineflayerViewer } = require('prismarine-viewer')
-bot.once('spawn', () => {
-  console.log("Bowt spawned");
- // mineflayerViewer(bot, { port: 25565, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
-})
-/*bot.on('windowOpen', (window) => {
-    console.log('GUI Title:', window.title);
-
-    window.slots.forEach((item, slot) => {
-        if (item) {
-            console.log(
-                `Slot ${slot}: ${item.name}`,
-                item.customName
-            );
-        }
-    });
-});*/
-
-/*bot.once('spawn', () => {
-  console.log("849494");
-    bot.chat('/register YOUR_PASSWORD YOUR_PASSWORD');
-});*/
-/*
-setInterval(() => {
-    if (!bot.entity) {
-        console.log('Bot is not spawned yet!');
-        return;
-    }
-
-    const pos = bot.entity.position;
-    const vel = bot.entity.velocity;
-
-    console.clear();
-
-    console.log('========== BOT STATUS ==========');
-
-    console.log('Username:', bot.username);
-    console.log('Online:', bot.player !== null);
-
-    console.log('\n--- Coordinates ---');
-    console.log('X:', pos.x.toFixed(2));
-    console.log('Y:', pos.y.toFixed(2));
-    console.log('Z:', pos.z.toFixed(2));
-
-    console.log('\n--- Player Stats ---');
-    console.log('Health:', bot.health);
-    console.log('Food:', bot.food);
-    console.log('Game Mode:', bot.game.gameMode);
-
-    console.log('\n--- Movement ---');
-    console.log('Velocity X:', vel.x.toFixed(2));
-    console.log('Velocity Y:', vel.y.toFixed(2));
-    console.log('Velocity Z:', vel.z.toFixed(2));
-
-    console.log('\n--- Other ---');
-    console.log('Dimension:', bot.game.dimension);
-    console.log('On Ground:', bot.entity.onGround);
-    console.log('Entity ID:', bot.entity.id);
-
-    console.log('================================');
-}, 1000);*/
-
-
-/*bot.on('windowOpen', (window) => {
-    console.log('========== WINDOW OPEN ==========');
-
-    console.log('Title:', window.title);
-    console.log('Type:', window.type);
-    console.log('Slots:', window.slots.length);
-
-    window.slots.forEach((item, slot) => {
-        if (item) {
-            console.log(`Slot ${slot}: ${item.name}`);
-        }
-    });
-});*/
-
-bot.on('windowClose', (window) => {
-    console.log('Window closed:', window.title);
-});
-
-
-bot.on('message', (message) => {
-    console.log('[SERVER MESSAGE]', message.toString());
-});
-
-
-bot.on('title', (title, type) => {
-    console.log('[TITLE]', type, title.toString());
-});
-
-bot.on('kicked', (reason) => {
-    console.log('[KICKED]', reason);
-});
-
-bot.on('end', (reason) => {
-    console.log('[DISCONNECTED]', reason);
-});
-
-// Raw incoming packets
-/*bot._client.on('packet', (data, meta) => {
-    if (
-        meta.name.includes('window') ||
-        meta.name.includes('form') ||
-        meta.name.includes('plugin')
-    ) {
-        console.log('[PACKET]', meta.name, data);
-    }
-});*/
-
 const password = 'YOUR_PASSWORD';
+let authAttempted = false;
 
 bot.on('message', (message) => {
     const msg = message.toString();
 
     console.log('[SERVER MESSAGE]', msg);
 
-    if (msg.includes('Waiting for your password')) {
+    if (
+        msg.includes('Waiting for your password') &&
+        !authAttempted
+    ) {
+        authAttempted = true;
+
         console.log('[AUTH] Password prompt detected!');
 
-      bot.chat(`/password ${password}`);
-    /*  setTimeout(() => {
-bot.chat(`/age 11 2000`);
-      }, 2000);
+        if (!password) {
+            console.log('[AUTH ERROR] MC_PASSWORD is missing');
+            return;
+        }
 
-      setTimeout(() => {
-bot.chat(`/accept`);
-      }, 4000);*/
-        //bot.chat(`/login ${password}`);  /accept
+        console.log('[AUTH] Sending password command...');
+
+        bot.chat(`/password ${password}`);
     }
 });
+
+bot.on('kicked', (reason, loggedIn) => {
+    console.log('[KICKED]', JSON.stringify(reason));
+    console.log('[LOGGED IN]', loggedIn);
+});
+
+bot.on('error', (err) => {
+    console.log('[ERROR]', err.code, err.message);
+});
+
+bot.on('end', (reason) => {
+    console.log('[DISCONNECTED]', reason);
+});
+
+bot.on('spawn', () => {
+    console.log('[SPAWN] Bot joined the world');
+});
+

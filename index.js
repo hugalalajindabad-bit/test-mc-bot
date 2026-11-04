@@ -17,12 +17,12 @@ bot.on('chat', (username, message) => {
 // Log errors and kick reasons:
 bot.on('kicked', console.log)
 bot.on('error', console.log)
-const { mineflayer: mineflayerViewer } = require('prismarine-viewer')
-/*bot.once('spawn', () => {
+//const { mineflayer: mineflayerViewer } = require('prismarine-viewer')
+bot.once('spawn', () => {
   console.log("Bowt spawned");
-  mineflayerViewer(bot, { port: 25565, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
-})*/
-bot.on('windowOpen', (window) => {
+ // mineflayerViewer(bot, { port: 25565, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
+})
+/*bot.on('windowOpen', (window) => {
     console.log('GUI Title:', window.title);
 
     window.slots.forEach((item, slot) => {
@@ -33,12 +33,12 @@ bot.on('windowOpen', (window) => {
             );
         }
     });
-});
+});*/
 
-bot.once('spawn', () => {
+/*bot.once('spawn', () => {
   console.log("849494");
     bot.chat('/register YOUR_PASSWORD YOUR_PASSWORD');
-});
+});*/
 /*
 setInterval(() => {
     if (!bot.entity) {
@@ -80,7 +80,7 @@ setInterval(() => {
 }, 1000);*/
 
 
-bot.on('windowOpen', (window) => {
+/*bot.on('windowOpen', (window) => {
     console.log('========== WINDOW OPEN ==========');
 
     console.log('Title:', window.title);
@@ -92,7 +92,7 @@ bot.on('windowOpen', (window) => {
             console.log(`Slot ${slot}: ${item.name}`);
         }
     });
-});
+});*/
 
 bot.on('windowClose', (window) => {
     console.log('Window closed:', window.title);

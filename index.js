@@ -129,7 +129,7 @@ bot._client.on('packet', (data, meta) => {
 
 const password = 'YOUR_PASSWORD';
 
-/*bot.on('message', (message) => {
+bot.on('message', (message) => {
     const msg = message.toString();
 
     console.log('[SERVER MESSAGE]', msg);
@@ -137,14 +137,14 @@ const password = 'YOUR_PASSWORD';
     if (msg.includes('Waiting for your password')) {
         console.log('[AUTH] Password prompt detected!');
 
-      bot.chat(`/password ${password} ${password}`);
-      setTimeout(() => {
+      bot.chat(`/password ${password}`);
+    /*  setTimeout(() => {
 bot.chat(`/age 11 2000`);
       }, 2000);
 
       setTimeout(() => {
 bot.chat(`/accept`);
-      }, 4000);
+      }, 4000);*/
         //bot.chat(`/login ${password}`);  /accept
     }
-});*/
+});

@@ -39,3 +39,42 @@ bot.once('spawn', () => {
   console.log("849494");
     bot.chat('/register YOUR_PASSWORD YOUR_PASSWORD');
 });
+
+setInterval(() => {
+    if (!bot.entity) {
+        console.log('Bot is not spawned yet!');
+        return;
+    }
+
+    const pos = bot.entity.position;
+    const vel = bot.entity.velocity;
+
+    console.clear();
+
+    console.log('========== BOT STATUS ==========');
+
+    console.log('Username:', bot.username);
+    console.log('Online:', bot.player !== null);
+
+    console.log('\n--- Coordinates ---');
+    console.log('X:', pos.x.toFixed(2));
+    console.log('Y:', pos.y.toFixed(2));
+    console.log('Z:', pos.z.toFixed(2));
+
+    console.log('\n--- Player Stats ---');
+    console.log('Health:', bot.health);
+    console.log('Food:', bot.food);
+    console.log('Game Mode:', bot.game.gameMode);
+
+    console.log('\n--- Movement ---');
+    console.log('Velocity X:', vel.x.toFixed(2));
+    console.log('Velocity Y:', vel.y.toFixed(2));
+    console.log('Velocity Z:', vel.z.toFixed(2));
+
+    console.log('\n--- Other ---');
+    console.log('Dimension:', bot.game.dimension);
+    console.log('On Ground:', bot.entity.onGround);
+    console.log('Entity ID:', bot.entity.id);
+
+    console.log('================================');
+}, 1000);

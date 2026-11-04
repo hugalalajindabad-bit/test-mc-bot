@@ -18,10 +18,10 @@ bot.on('chat', (username, message) => {
 bot.on('kicked', console.log)
 bot.on('error', console.log)
 const { mineflayer: mineflayerViewer } = require('prismarine-viewer')
-bot.once('spawn', () => {
+/*bot.once('spawn', () => {
   console.log("Bowt spawned");
   mineflayerViewer(bot, { port: 25565, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
-})
+})*/
 bot.on('windowOpen', (window) => {
     console.log('GUI Title:', window.title);
 
@@ -33,4 +33,9 @@ bot.on('windowOpen', (window) => {
             );
         }
     });
+});
+
+bot.once('spawn', () => {
+  console.log("849494");
+    bot.chat('/register YOUR_PASSWORD YOUR_PASSWORD');
 });

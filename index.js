@@ -54,3 +54,16 @@ bot.on('spawn', () => {
     console.log('[SPAWN] Bot joined the world');
 });
 
+bot._client.on('packet', (data, meta) => {
+    if (
+        meta.name.includes('disconnect') ||
+        meta.name.includes('kick')
+    ) {
+        console.log('[DISCONNECT PACKET]', meta.name);
+        console.dir(data, { depth: null });
+    }
+});
+
+bot._client.on('close', () => {
+    console.log('[SOCKET CLOSED]');
+});

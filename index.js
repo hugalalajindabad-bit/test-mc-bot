@@ -22,3 +22,15 @@ bot.once('spawn', () => {
   console.log("Bowt spawned");
   mineflayerViewer(bot, { port: 25565, firstPerson: true }) // port is the minecraft server port, if first person is false, you get a bird's-eye view
 })
+bot.on('windowOpen', (window) => {
+    console.log('GUI Title:', window.title);
+
+    window.slots.forEach((item, slot) => {
+        if (item) {
+            console.log(
+                `Slot ${slot}: ${item.name}`,
+                item.customName
+            );
+        }
+    });
+});

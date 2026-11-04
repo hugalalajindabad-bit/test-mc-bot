@@ -53,6 +53,11 @@ bot.on('end', (reason) => {
 bot.on('spawn', () => {
     console.log('[SPAWN] Bot joined the world');
 });
+bot.once('spawn', () => {
+    console.log('Bot spawned');
+    console.log('Minecraft version:', bot.version);
+    console.log('Protocol version:', bot._client.version);
+});
 
 bot._client.on('packet', (data, meta) => {
     if (

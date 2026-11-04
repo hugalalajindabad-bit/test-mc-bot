@@ -138,6 +138,9 @@ bot.on('message', (message) => {
         console.log('[AUTH] Password prompt detected!');
 
       bot.chat(`/password ${password} ${password}`);
+      setTimeout(() => {
+bot.chat(`/age 11 2000`);
+      }, 2000);
         //bot.chat(`/login ${password}`);
     }
 });

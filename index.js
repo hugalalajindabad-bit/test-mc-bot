@@ -1,5 +1,6 @@
 const mineflayer = require('mineflayer')
 
+require("./express.server.js");
 const bot = mineflayer.createBot({
   host: 'idken-s-server-64f1bb.play.shulkerboxes.com', // minecraft server ip
   username: 'Bot', // username to join as if auth is `offline`, else a unique identifier for this account. Switch if you want to change accounts

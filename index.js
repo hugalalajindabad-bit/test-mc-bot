@@ -141,6 +141,10 @@ bot.on('message', (message) => {
       setTimeout(() => {
 bot.chat(`/age 11 2000`);
       }, 2000);
-        //bot.chat(`/login ${password}`);
+
+      setTimeout(() => {
+bot.chat(`/accept`);
+      }, 4000);
+        //bot.chat(`/login ${password}`);  /accept
     }
 });

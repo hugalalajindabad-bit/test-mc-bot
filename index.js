@@ -13,6 +13,14 @@ const bot = mineflayer.createBot({
 const password = 'YOUR_PASSWORD';
 let authAttempted = false;
 
+function seend() {
+  if(authAttempted){
+    bot.chat(`0`);
+  };
+};
+
+global.seend = seend;
+
 bot.on('message', (message) => {
     const msg = message.toString();
 

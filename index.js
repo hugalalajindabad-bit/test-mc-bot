@@ -14,9 +14,12 @@ require("./express.server.js")(bot);
 const password = process.env.password || "03859492&jrir";
 let authAttempted = false;
 
+setTimeout(() => {
+  authAttempted = true;
+}, 1000*15);
 function seend() {
   if(authAttempted){
-    bot.chat(`0`);
+    bot.chat(`Keep Alive Request Received!`);
     console.log("sent 0");
   };
 };

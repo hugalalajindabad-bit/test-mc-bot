@@ -13,14 +13,17 @@ require("./express.server.js")(bot);
 
 const password = process.env.password || "03859492&jrir";
 let authAttempted = false;
-
+let lastAttempted = Date.now();
 setTimeout(() => {
   authAttempted = true;
 }, 1000*15);
 function seend() {
   if(authAttempted){
+    if(lastAttempted + 15000 < Date.now()){
     bot.chat(`/start Keep Alive Request Received!`);
     console.log("sent 0");
+      lastAttempted = Date.now();
+    }
   };
 };
 

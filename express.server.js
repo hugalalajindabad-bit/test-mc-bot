@@ -152,6 +152,16 @@ button:hover {
     <div class="status">● Connected to dashboard</div>
   </div>
 
+
+<div id="serverStatus" style="
+  padding: 14px;
+  background: #191b22;
+  border-bottom: 1px solid #30333d;
+">
+  Loading server status...
+</div>
+
+
   <div id="messages"></div>
 
   <form class="input-area" id="chatForm">
@@ -252,6 +262,49 @@ form.addEventListener('submit', async (event) => {
 
 loadMessages();
 setInterval(loadMessages, 1000);
+
+async function loadStatus() {
+  const statusDiv = document.getElementById('serverStatus');
+
+  try {
+    const response = await fetch('/api/chat/status');
+    const data = await response.json();
+
+    statusDiv.replaceChildren();
+
+    const title = document.createElement('div');
+    title.textContent = data.online
+      ? '🟢 Server Online'
+      : '🔴 Bot Disconnected';
+
+    title.style.fontWeight = 'bold';
+    title.style.marginBottom = '8px';
+
+    const info = document.createElement('div');
+
+    info.textContent =
+      \`Bot: ${data.username} | \` +
+      \`Version: ${data.version} | \` +
+      \`Ping: ${data.ping ?? 'N/A'} ms\`;
+
+    const players = document.createElement('div');
+
+    players.style.marginTop = '8px';
+
+    players.textContent =
+      \`Players (${data.playersOnline}): \` +
+      data.players.join(', ');
+
+    statusDiv.append(title, info, players);
+
+  } catch (error) {
+    statusDiv.textContent = '🔴 Status unavailable';
+  }
+}
+
+loadStatus();
+setInterval(loadStatus, 5000);
+    
 </script>
 
 </body>

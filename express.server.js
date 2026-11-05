@@ -290,7 +290,7 @@ async function loadStatus() {
     players.style.marginTop = '8px';
 
     players.textContent =
-      \`Players (${data.playersOnline}): \` +
+      \`Players (\${data.playersOnline}): \` +
       data.players.join(', ');
 
     statusDiv.append(title, info, players);

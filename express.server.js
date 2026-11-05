@@ -283,9 +283,7 @@ async function loadStatus() {
     const info = document.createElement('div');
 
     info.textContent =
-      \`Bot: ${data.username} | \` +
-      \`Version: ${data.version} | \` +
-      \`Ping: ${data.ping ?? 'N/A'} ms\`;
+  \`Bot: \${data.username} | Version: \${data.version} | Ping: \${data.ping ?? 'N/A'} ms\`;
 
     const players = document.createElement('div');
 

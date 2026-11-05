@@ -6,6 +6,11 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.get('/health', (req, res) => {
+  res.status(200).send('Bot service is running');
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });   

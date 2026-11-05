@@ -16,6 +16,7 @@ let authAttempted = false;
 function seend() {
   if(authAttempted){
     bot.chat(`0`);
+    console.log("sent 0");
   };
 };
 

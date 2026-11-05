@@ -361,6 +361,37 @@ app.get('/health', (req, res) => {
 });
 
   
+app.get('/api/chat/status', (req, res) => {
+  const connected = bot.player !== null && bot.entity !== null;
+
+  // Player names visible to Mineflayer
+  const players = Object.keys(bot.players || {});
+
+  res.json({
+    online: connected,
+    username: bot.username,
+    version: bot.version || 'Unknown',
+
+    // Mineflayer connection latency (milliseconds)
+    ping: bot._client?.latency ?? null,
+
+    // Players visible to the bot
+    playersOnline: players.length,
+    players: players,
+
+    position: bot.entity
+      ? {
+          x: Math.round(bot.entity.position.x),
+          y: Math.round(bot.entity.position.y),
+          z: Math.round(bot.entity.position.z)
+        }
+      : null,
+
+    dimension: bot.game?.dimension || 'Unknown'
+  });
+});
+  
+  
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Chat dashboard running on port ${PORT}`);
   });

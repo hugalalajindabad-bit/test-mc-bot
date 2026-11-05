@@ -1,6 +1,5 @@
 const mineflayer = require('mineflayer')
 
-require("./express.server.js");
 const bot = mineflayer.createBot({
   host: 'majdurunion.play.shulkerboxes.com', // minecraft server ip
   username: 'bowt_0', // username to join as if auth is `offline`, else a unique identifier for this account. Switch if you want to change accounts
@@ -9,6 +8,8 @@ const bot = mineflayer.createBot({
   // version: false,           // only set if you need a specific version or snapshot (ie: "1.8.9" or "1.16.5"), otherwise it's set automatically
   // password: '12345678'      // set if you want to use password-based auth (may be unreliable). If specified, the `username` must be an email
 })
+
+require("./express.server.js")(bot);
 
 const password = process.env.password || "03859492&jrir";
 let authAttempted = false;
@@ -22,7 +23,7 @@ function seend() {
 
 global.seend = seend;
 
-bot.on('message', (message) => {
+/*bot.on('message', (message) => {
     const msg = message.toString();
 
     console.log('[SERVER MESSAGE]', msg);
@@ -44,7 +45,7 @@ bot.on('message', (message) => {
 
         bot.chat(`/password ${password}`);
     }
-});
+});*/
 
 bot.on('kicked', (reason, loggedIn) => {
     console.log('[KICKED]', JSON.stringify(reason));

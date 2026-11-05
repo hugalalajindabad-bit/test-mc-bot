@@ -19,7 +19,7 @@ setTimeout(() => {
 }, 1000*15);
 function seend() {
   if(authAttempted){
-    bot.chat(`Keep Alive Request Received!`);
+    bot.chat(`/start Keep Alive Request Received!`);
     console.log("sent 0");
   };
 };

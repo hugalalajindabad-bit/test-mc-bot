@@ -88,3 +88,17 @@ bot._client.on('packet', (data, meta) => {
 bot._client.on('close', () => {
     console.log('[SOCKET CLOSED]');
 });
+
+
+
+bot.on('chat', (username, message) => {
+  console.log(username);
+  console.log(message);
+  // Only allow your username
+  //if (username.toLowerCase() !== 'sujoy8534') return;
+
+  // Check command
+ /* if (message.toLowerCase() === '!ping') {
+    bot.chat('pong');
+  }*/
+});

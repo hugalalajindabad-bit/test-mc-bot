@@ -14,7 +14,9 @@ module.exports = function startChatServer(bot) {
   // Store incoming Minecraft messages
   bot.on('message', (message) => {
     const text = message.toString();
-
+    if(text.includes("error start Keep")){
+      return;
+    }
     const entry = {
       id: Date.now() + Math.random(),
       text,

@@ -343,8 +343,16 @@ setInterval(loadStatus, 5000);
     if(finalMsg.startsWith("!")){
       if(finalMsg.startsWith("!pass")){
         bot.chat(`/password ${process.env.mc_pass}`);
+        res.json({
+      success: true,
+      message: 'command sent'
+    });
         return;
       }
+      res.json({
+      success: true,
+      message: 'sent'
+    });
       return;
     }
     bot.chat(finalMsg);

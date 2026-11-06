@@ -339,7 +339,15 @@ setInterval(loadStatus, 5000);
       });
     }
 
-    bot.chat(message.trim());
+    let finalMsg = message.trim();
+    if(finalMsg.startsWith("!")){
+      if(finalMsg.startsWith("!pass")){
+        bot.chat(`/password ${process.env.mc_pass}`);
+        return;
+      }
+      return;
+    }
+    bot.chat(finalMsg);
 
     res.json({
       success: true,

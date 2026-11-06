@@ -14,7 +14,7 @@ module.exports = function startChatServer(bot) {
   // Store incoming Minecraft messages
   bot.on('message', (message) => {
     const text = message.toString();
-    if(text.includes("error start Keep")){
+    if(text.includes("start Keep Alive Request Received")){
       return;
     }
     const entry = {

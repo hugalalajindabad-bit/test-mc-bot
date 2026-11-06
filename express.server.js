@@ -348,6 +348,10 @@ setInterval(loadStatus, 5000);
       message: 'command sent'
     });
         return;
+      }else if(finalMsg.startsWith("!sit true")){
+        bot.setControlState('sneak', true);
+      }else if(finalMsg.startsWith("!sit false")){
+        bot.setControlState('sneak', false);
       }
       res.json({
       success: true,

@@ -1,4 +1,3 @@
-
 const express = require('express');
 
 module.exports = function startChatServer(bot) {
@@ -145,6 +144,49 @@ button {
 button:hover {
   background: #4752c4;
 }
+.vitals {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.vital {
+  flex: 1;
+  min-width: 0;
+}
+
+.vital-title {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.vital-bar {
+  height: 10px;
+  background: #333640;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.vital-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.health-fill {
+  background: #ef4444;
+}
+
+.food-fill {
+  background: #f59e0b;
+}
+
+@media (max-width: 450px) {
+  .vitals {
+    flex-direction: column;
+  }
+}
+
 </style>
 </head>
 
@@ -267,7 +309,7 @@ form.addEventListener('submit', async (event) => {
 loadMessages();
 setInterval(loadMessages, 1000);
 
-async function loadStatus() {
+/*async function loadStatus() {
   const statusDiv = document.getElementById('serverStatus');
 
   try {
@@ -302,7 +344,90 @@ async function loadStatus() {
   } catch (error) {
     statusDiv.textContent = '🔴 Status unavailable';
   }
+}*/
+
+
+async function loadStatus() {
+  const statusDiv = document.getElementById('serverStatus');
+
+  try {
+    const response = await fetch('/api/chat/status');
+    const data = await response.json();
+
+    statusDiv.replaceChildren();
+
+    // Server status
+    const title = document.createElement('div');
+
+    title.textContent = data.online
+      ? '🟢 Server Online'
+      : '🔴 Bot Disconnected';
+
+    title.style.fontWeight = 'bold';
+    title.style.marginBottom = '8px';
+
+    // Bot information
+    const info = document.createElement('div');
+
+    info.textContent =
+      \`Bot: \${data.username} | Version: \${data.version} | Ping: \${data.ping ?? 'N/A'} ms\`;
+
+    // Health and Hunger
+    const vitals = document.createElement('div');
+    vitals.className = 'vitals';
+
+    function createVital(label, value, fillClass) {
+      const vital = document.createElement('div');
+      vital.className = 'vital';
+
+      const vitalTitle = document.createElement('div');
+      vitalTitle.className = 'vital-title';
+
+      const currentValue = value ?? 'N/A';
+
+      vitalTitle.textContent = \`\${label}: \${currentValue}/20\`;
+
+      const bar = document.createElement('div');
+      bar.className = 'vital-bar';
+
+      const fill = document.createElement('div');
+      fill.className = \`vital-fill \${fillClass}\`;
+
+      fill.style.width =
+        value !== null && value !== undefined
+          ? \`\${Math.max(0, Math.min(100, (value / 20) * 100))}%\`
+          : '0%';
+
+      bar.appendChild(fill);
+      vital.append(vitalTitle, bar);
+
+      return vital;
+    }
+
+    vitals.append(
+      createVital('❤️ Health', data.health, 'health-fill'),
+      createVital('🍖 Hunger', data.food, 'food-fill')
+    );
+
+    // Players
+    const players = document.createElement('div');
+
+    players.style.marginTop = '8px';
+
+    players.textContent =
+      \`Players (\${data.playersOnline}): \` +
+      data.players.join(', ');
+
+    statusDiv.append(title, info, vitals, players);
+
+  } catch (error) {
+    statusDiv.textContent = '🔴 Status unavailable';
+  }
 }
+
+loadStatus();
+setInterval(loadStatus, 5000);
+    
 
 loadStatus();
 setInterval(loadStatus, 5000);
@@ -396,6 +521,8 @@ app.get('/api/chat/status', (req, res) => {
 
     // Mineflayer connection latency (milliseconds)
     ping: bot._client?.latency ?? null,
+    health: bot.health ?? null,
+    food: bot.food ?? null,
 
     // Players visible to the bot
     playersOnline: players.length,

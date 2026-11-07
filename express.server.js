@@ -479,6 +479,8 @@ setInterval(loadStatus, 5000);
         bot.setControlState('sneak', true);
       }else if(finalMsg.startsWith("!sit false")){
         bot.setControlState('sneak', false);
+      }else if(finalMsg.startsWith("!leave")){
+        bot.quit();
       }
       res.json({
       success: true,

@@ -102,3 +102,22 @@ bot.on('chat', (username, message) => {
     bot.chat('pong');
   }*/
 });
+
+const updateServerStatus = require("./webhook");
+
+updateServerStatus({
+  online: true,
+  playerCount: 2,
+  maxPlayers: 20,
+  ping: 4,
+
+  players: [
+    "Steve",
+    "Alex"
+  ],
+
+  environment: {
+    time: "night",
+    weather: "rain"
+  }
+});

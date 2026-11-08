@@ -2,7 +2,7 @@
 const axios = require("axios");
 
 const webhookURL = process.env.DISCORD_WEBHOOK_URL;
-const messageID = "YOUR_MESSAGE_ID";
+const messageID = "1568947127172862044";
 
 async function updateServerStatus(data) {
   const {

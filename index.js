@@ -69,7 +69,7 @@ bot.on('end', (reason) => {
 bot.on('spawn', () => {
     console.log('[SPAWN] Bot joined the world');
 });
-bot.once('spawn', () => {
+bot.on('spawn', () => {
     console.log('Bot spawned');
     console.log('Minecraft version:', bot.version);
     console.log('Protocol version:', bot._client.version);
@@ -103,21 +103,81 @@ bot.on('chat', (username, message) => {
   }*/
 });
 
+
+// discord status logix
+
 const updateServerStatus = require("./webhook");
 
-updateServerStatus({
-  online: true,
-  playerCount: 2,
-  maxPlayers: 20,
-  ping: 4,
+// Maximum players
+const MAX_PLAYERS = 50;
 
-  players: [
-    "Steve",
-    "Alex"
-  ],
+function getServerData(bot) {
+  const players = Object.keys(bot.players || {});
 
-  environment: {
-    time: "night",
-    weather: "rain"
+  // Bot ka username player list se exclude
+  const playerList = players; /*.filter(
+    name => name !== bot.username
+  );*/
+
+  // Environment
+  const time = bot.time?.isDay ? "day" : "night";
+
+  let weather = "clear";
+
+  if (bot.thunderState > 0.5) {
+    weather = "thunder";
+  } else if (bot.isRaining) {
+    weather = "rain";
   }
+
+  return {
+    online: true,
+
+    // Total count me bot bhi included hai
+    playerCount: players.length,
+
+    maxPlayers: MAX_PLAYERS,
+
+    ping: bot.player?.ping || 0,
+
+    players: playerList,
+
+    environment: {
+      time,
+      weather
+    }
+  };
+}
+
+let statusInterval;
+
+bot.on("spawn", async () => {
+  console.log("Bot spawned!");
+
+  await updateServerStatus(getServerData(bot));
+
+  // Update every 30 seconds
+  clearInterval(statusInterval);
+
+  statusInterval = setInterval(async () => {
+    if (bot.player) {
+      await updateServerStatus(getServerData(bot));
+    }
+  }, 30000);
+});
+
+bot.on("end", async () => {
+  clearInterval(statusInterval);
+
+  await updateServerStatus({
+    online: false,
+    playerCount: "-1",
+    maxPlayers: MAX_PLAYERS,
+    ping: null,
+    players: [null],
+    environment: {
+      time: "unknown",
+      weather: "unknown"
+    }
+  });
 });

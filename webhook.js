@@ -1,6 +1,7 @@
 
-const webhookURL = process.env.DISCORD_WEBHOOK_URL;
+const axios = require("axios");
 
+const webhookURL = process.env.DISCORD_WEBHOOK_URL;
 const messageID = "YOUR_MESSAGE_ID";
 
 async function updateServerStatus(data) {
@@ -13,28 +14,36 @@ async function updateServerStatus(data) {
     environment = {}
   } = data;
 
+  // Server status
   const statusEmoji = online ? "`🟢`" : "`🔴`";
   const statusText = online ? "Online" : "Offline";
 
+  // Player list
   const playerList = players.length
     ? players.map(name => `\`${name}\``).join(", ")
     : "`No players online`";
 
+  // Time emoji
   const timeEmoji = environment.time === "day"
     ? "`☀️`"
-    : "`🌙`";
+    : environment.time === "night"
+      ? "`🌙`"
+      : "`❔`";
 
+  // Weather emojis
   const weatherEmoji = {
     clear: "`☀️`",
     rain: "`🌧️`",
     thunder: "`⛈️`"
   };
 
-  // Discord relative timestamp
+  // Last updated timestamp
   const lastUpdated = Math.floor(Date.now() / 1000);
 
+  // Embed
   const embed = {
     title: "`⛏️` Majdur Union | Server Status",
+
     color: online ? 0x00FF00 : 0xFF0000,
 
     fields: [
@@ -78,26 +87,28 @@ async function updateServerStatus(data) {
     }
   };
 
-  const response = await fetch(
-    `${webhookURL}/messages/${messageID}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
+  try {
+    const response = await axios.patch(
+      `${webhookURL}/messages/${messageID}`,
+      {
         embeds: [embed]
-      })
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Webhook update failed: ${response.status} ${await response.text()}`
+      },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
     );
-  }
 
-  return true;
+    return response.status === 200;
+  } catch (error) {
+    console.error(
+      "Discord Webhook Error:",
+      error.response?.data || error.message
+    );
+
+    return false;
+  }
 }
 
 module.exports = updateServerStatus;

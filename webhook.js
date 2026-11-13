@@ -53,9 +53,19 @@ async function updateServerStatus(data) {
         inline: true
       },
       {
+        name: "\u200B",
+        value: `\u200B`,
+        inline: true 
+      },
+      {
         name: "`👥` Players",
         value: `\`${playerCount}/${maxPlayers}\``,
-        inline: true
+        inline: true \u200B
+      },
+      {
+        name: "\u200B",
+        value: `\u200B`,
+        inline: true 
       },
       {
         name: "`🏓` Ping",
@@ -64,9 +74,19 @@ async function updateServerStatus(data) {
         inline: true
       },
       {
+        name: "\u200B",
+        value: `\u200B`,
+        inline: true 
+      },
+      {
         name: "`🎮` Player List",
         value: playerList,
         inline: false
+      },
+      {
+        name: "\u200B",
+        value: `\u200B`,
+        inline: true 
       },
       {
         name: "`🌍` Environment",
@@ -75,6 +95,11 @@ async function updateServerStatus(data) {
           `${weatherEmoji[environment.weather] || "`❔`"} Weather: \`${environment.weather || "Unknown"}\``
         ].join("\n"),
         inline: false
+      },
+      {
+        name: "\u200B",
+        value: `\u200B`,
+        inline: true 
       },
       {
         name: "`🕒` Last Updated",

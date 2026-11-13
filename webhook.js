@@ -58,8 +58,8 @@ async function updateServerStatus(data) {
       },
       {
         name: "• `🏓` Ping",
-        value: `↳ [\`🔴\`] - Node-1 : \`-1 ms\` [Asia]
-↳ [<:server:1570687895440724039>] - Node-2 : \`${online ? `${ping} ms` : "N/A"}\` [US-East] \n\u200B`,
+        value: `↳ [\`🔴\`] - Node-A1 : \`-1 ms\` [Asia]
+↳ [<:server:1570687895440724039>] - Node-U1 : \`${online ? `${ping} ms` : "N/A"}\` [US-East] \n\u200B`,
         inline: true
       },
       {

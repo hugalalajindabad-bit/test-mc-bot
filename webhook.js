@@ -1,4 +1,3 @@
-
 const axios = require("axios");
 
 const webhookURL = process.env.DISCORD_WEBHOOK_URL;
@@ -60,7 +59,7 @@ async function updateServerStatus(data) {
       {
         name: "• `👥` Players",
         value: `↳ \`${playerCount}/${maxPlayers}\``,
-        inline: true \u200B
+        inline: true
       },
       {
         name: "\u200B",

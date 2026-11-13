@@ -48,57 +48,32 @@ async function updateServerStatus(data) {
     fields: [
       {
         name: "• `📡` Server Status",
-        value: `↳ ${statusEmoji} ${statusText}`,
+        value: `↳ ${statusEmoji} ${statusText} \n\u200B`,
         inline: true
-      },
-      {
-        name: "\u200B",
-        value: `\u200B`,
-        inline: true 
       },
       {
         name: "• `👥` Players",
-        value: `↳ \`${playerCount}/${maxPlayers}\``,
+        value: `↳ \`${playerCount}/${maxPlayers}\` \n\u200B`,
         inline: true
-      },
-      {
-        name: "\u200B",
-        value: `\u200B`,
-        inline: true 
       },
       {
         name: "• `🏓` Ping",
         value: `↳ [\`🔴\`] - Node-1 : \`-1 ms\` [Asia]
-[<:server:1570687895440724039>] - Node-2 : \`${online ? `${ping} ms` : "N/A"}\` [US-East]`,
+↳ [<:server:1570687895440724039>] - Node-2 : \`${online ? `${ping} ms` : "N/A"}\` [US-East] \n\u200B`,
         inline: true
       },
       {
-        name: "\u200B",
-        value: `\u200B`,
-        inline: true 
-      },
-      {
         name: "• `🎮` Player List",
-        value: "↳ " + playerList,
+        value: "↳ " + playerList + " \n\u200B",
         inline: false
-      },
-      {
-        name: "\u200B",
-        value: `\u200B`,
-        inline: true 
       },
       {
         name: "• `🌍` Environment",
         value: [
           `↳ ${timeEmoji} Time: \`${environment.time || "Unknown"}\``,
           `↳ ${weatherEmoji[environment.weather] || "`❔`"} Weather: \`${environment.weather || "Unknown"}\``
-        ].join("\n"),
+        ].join("\n") + " \n\u200B",
         inline: false
-      },
-      {
-        name: "\u200B",
-        value: `\u200B`,
-        inline: true 
       },
       {
         name: "• `🕒` Last Updated",

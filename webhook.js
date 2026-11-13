@@ -29,18 +29,13 @@ async function getPeerPings(excludeNode) {
     let match;
 
     while ((match = regex.exec(pingField.value)) !== null) {
-      console.log(match)
-      console.log("^^^");
       const node = `Node-${match[1]}`;
 
       if (node === excludeNode) continue;
 
       result[node] = Number(match[2]);
-      console.log("vvv")
-      console.log(match);
     }
 
-    console.log(result);
     return result;
 
   } catch (err) {

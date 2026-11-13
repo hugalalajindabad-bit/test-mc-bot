@@ -24,7 +24,7 @@ async function getPeerPings(excludeNode) {
     // - Node-A1 : `5ms` [Asia]
     // - Node-U1 : `53ms` [US-East]
 
-    const regex = /- (Node-[A-Z]\d+)\s*:\s*`(\d+(?:\.\d+)?)ms`/g;
+    const regex = /Node-([A-Z]\d+)\s*:\s*`(-?\d+(?:\.\d+)?)\s*ms`/g;
 
     let match;
 

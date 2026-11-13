@@ -48,8 +48,8 @@ async function updateServerStatus(data) {
 
     fields: [
       {
-        name: "`📡` Server Status",
-        value: `${statusEmoji} ${statusText}`,
+        name: "• `📡` Server Status",
+        value: `↳ ${statusEmoji} ${statusText}`,
         inline: true
       },
       {
@@ -58,8 +58,8 @@ async function updateServerStatus(data) {
         inline: true 
       },
       {
-        name: "`👥` Players",
-        value: `\`${playerCount}/${maxPlayers}\``,
+        name: "• `👥` Players",
+        value: `↳ \`${playerCount}/${maxPlayers}\``,
         inline: true \u200B
       },
       {
@@ -68,8 +68,8 @@ async function updateServerStatus(data) {
         inline: true 
       },
       {
-        name: "`🏓` Ping",
-        value: `[\`🔴\`] - Node-1 : \`-1 ms\` [Asia]
+        name: "• `🏓` Ping",
+        value: `↳ [\`🔴\`] - Node-1 : \`-1 ms\` [Asia]
 [<:server:1570687895440724039>] - Node-2 : \`${online ? `${ping} ms` : "N/A"}\` [US-East]`,
         inline: true
       },
@@ -79,8 +79,8 @@ async function updateServerStatus(data) {
         inline: true 
       },
       {
-        name: "`🎮` Player List",
-        value: playerList,
+        name: "• `🎮` Player List",
+        value: "↳ " + playerList,
         inline: false
       },
       {
@@ -89,10 +89,10 @@ async function updateServerStatus(data) {
         inline: true 
       },
       {
-        name: "`🌍` Environment",
+        name: "• `🌍` Environment",
         value: [
-          `${timeEmoji} Time: \`${environment.time || "Unknown"}\``,
-          `${weatherEmoji[environment.weather] || "`❔`"} Weather: \`${environment.weather || "Unknown"}\``
+          `↳ ${timeEmoji} Time: \`${environment.time || "Unknown"}\``,
+          `↳ ${weatherEmoji[environment.weather] || "`❔`"} Weather: \`${environment.weather || "Unknown"}\``
         ].join("\n"),
         inline: false
       },
@@ -102,7 +102,7 @@ async function updateServerStatus(data) {
         inline: true 
       },
       {
-        name: "`🕒` Last Updated",
+        name: "• `🕒` Last Updated",
         value: `<t:${lastUpdated}:R>`,
         inline: false
       }
